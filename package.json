@@ -1,0 +1,23 @@
+{
+  "name": "geohash",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "bin": "src/index.js",
+  "scripts": {
+    "start": "npx nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pack": "ncc build -m",
+    "build": "npx pkg -t latest-linux-arm64 . -o build/MYAPI.exe"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@vercel/ncc": "^0.38.1",
+    "body-parser": "^1.20.2",
+    "express": "^4.19.2",
+    "http-server": "^14.1.1",
+    "ol": "^10.1.0",
+    "pkg": "^5.8.1"
+  }
+}

@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  node:
+    build: ./images/node
+    working_dir: /geohash
+    volumes:
+      - ../:/geohash:delegated
+    tty: true
+    command: sleep infinity
+    ports:
+      # for express
+      - 3001:3001
