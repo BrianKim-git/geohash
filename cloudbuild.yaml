@@ -35,7 +35,7 @@ steps:
       - '--concurrency=1' # 배포될 서비스에서 각 인스턴스가 최대로 처리 가능한 요청의 개수(동시성)
       - '--max-instances=250' # 배포될 서비스의 최대 인스턴스 개수
       - '--timeout=360' # 배포될 서비스의 최대 요청시간
-      - '--port=3001' # 배포될 서비스의 각 인스턴스 port(이렇게 설정해도 https 포트로 접속해야함)
+      - '--port=8080' # 배포될 서비스의 각 인스턴스 port(이렇게 설정해도 https 포트로 접속해야함)
     id: Deploy
     entrypoint: gcloud
 images:
