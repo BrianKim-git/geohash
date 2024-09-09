@@ -10,4 +10,4 @@ services:
     command: sleep infinity
     ports:
       # for express
-      - 3001:3001
+      - 8080:8080
