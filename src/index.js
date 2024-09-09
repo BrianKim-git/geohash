@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
-app.listen(3001, () => {console.log(`geohash server open`)})
+app.listen(8080, () => {console.log(`geohash server open`)})
 
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
