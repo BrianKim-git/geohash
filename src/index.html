@@ -13,6 +13,9 @@
             margin: auto;
             margin-top: 25px;
         }
+        .popover-body {
+            min-width: 276px;
+        }
     </style>
     <script>
         var current;
@@ -49,18 +52,32 @@
         let popupElement = document.getElementById('popup');
 
         var popup = new ol.Overlay({
-            element: popupElement,
-            positioning: 'bottom-center',
-            stopEvent: false,
-            offset: [0, -10]
+            element: popupElement
         });
         map.addOverlay(popup);
 
         let popover;
-        map.on('click', function(evt) {
-            var clickedCoordinate = evt.coordinate;
-            map.forEachFeatureAtPixel(evt.pixel, function(feature) {
+        map.on('click', async (evt) => {
+            const coordinate = evt.coordinate;
+            popup.setPosition(coordinate);
+            let popover = bootstrap.Popover.getInstance(popupElement);
+            if (popover) {
+                popover.dispose();
+            }
+            const response = await fetch(`/api/geohash/encode?lat=${coordinate[0]}&lng=${coordinate[1]}&zoom=${map.getView().getZoom()}`, {
+                method: 'get'
+            })
+            const geohash = await response.json();
+
+            popover = new bootstrap.Popover(popupElement, {
+                animation: false,
+                container: popupElement,
+                content: `<p>The Geohash you clicked was:</p><code>${geohash.encode}</code>`,
+                html: true,
+                placement: 'top',
+                title: 'GeoHash Here',
             });
+            popover.show();
         });
     </script>
   </body>

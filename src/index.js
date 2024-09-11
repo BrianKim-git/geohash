@@ -1,15 +1,16 @@
 const express = require('express');
-const path = require('path');
-const admin = require('../serviceAccountKey.json');
-const geohashRouter = require('./apiGeohash');
 const app = express();
-
+const path = require('path');
+const admin = require('firebase-admin');
+const serviceAccount = require('../serviceAccountKey.json');
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
 });
+const geohashRouter = require('./apiGeohash');
 
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
+
 app.use('/api/geohash', geohashRouter);
 
 app.get('/', (req, res)=>{
