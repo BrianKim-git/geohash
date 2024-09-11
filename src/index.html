@@ -10,58 +10,58 @@
         .map {
             width: 1500px;
             height: 800px;
+            margin: auto;
+            margin-top: 25px;
         }
     </style>
+    <script>
+        var current;
+    </script>
   </head>
   <body>
-    <div id="map" class="map">
-        <div id="popup"></div>
-    </div>
+    <div id="map" class="map"></div>
+    <div id="popup" class="ol-popup"></div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         var map = new ol.Map({
             layers: [new ol.layer.Tile({ source: new ol.source.OSM() })],
             view: new ol.View({
-                center: [136.9858554714588, 35.16251587222979],
                 zoom: 8,
-                projection: 'EPSG:4326'
+                projection: 'EPSG:4326',
+                center: new ol.geom.Point([136.9858554714588, 35.16251587222979])
+                .getCoordinates()
             }),
             target: 'map'
         });
 
-        let element = document.getElementById('popup');
+        var currentLocationFeature = new ol.Feature();
+        var popupFeature = new ol.Feature();
 
-        let popup = new ol.Overlay({
-            element: element,
+        var vectorSource = new ol.source.Vector({
+            features: [currentLocationFeature, popupFeature]
+        });
+
+        var vectorLayer = new ol.layer.Vector({
+            source: vectorSource
+        });
+        map.addLayer(vectorLayer);
+
+        let popupElement = document.getElementById('popup');
+
+        var popup = new ol.Overlay({
+            element: popupElement,
+            positioning: 'bottom-center',
             stopEvent: false,
+            offset: [0, -10]
         });
         map.addOverlay(popup);
 
         let popover;
-        map.on('click', async function (event) {
-            console.log(popover);
-            if (popover) {
-                popover.dispose();
-                popover = undefined;
-            }
-            let coordinate = map.getCoordinateFromPixel(event.pixel);
-            let request = await fetch('/api/geohash', {
-                method: 'post',
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({'coordinate': coordinate})
+        map.on('click', function(evt) {
+            var clickedCoordinate = evt.coordinate;
+            map.forEachFeatureAtPixel(evt.pixel, function(feature) {
             });
-
-            let geohash = await request.json();
-            popover = new bootstrap.Popover(element, {
-                container: element.parentElement,
-                content: `geohash here : ${geohash.geohash}`,
-                html: true,
-                offset: [0, 20],
-                placement: 'top',
-                sanitize: false,
-            });
-            popover.show();
-        })
+        });
     </script>
   </body>
 </html>

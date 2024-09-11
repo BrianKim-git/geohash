@@ -14,10 +14,8 @@
   "description": "",
   "dependencies": {
     "@vercel/ncc": "^0.38.1",
-    "body-parser": "^1.20.2",
     "express": "^4.19.2",
-    "http-server": "^14.1.1",
-    "ol": "^10.1.0",
-    "pkg": "^5.8.1"
+    "firebase-admin": "^12.4.0",
+    "ol": "^10.1.0"
   }
 }
