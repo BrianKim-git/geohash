@@ -1,9 +1,25 @@
 node_modules
-server.crt
-server.key
-.env
-*.txt
+
+# Output
+.output
+.vercel
+/.svelte-kit
+/build
+
+# OS
 .DS_Store
-dist
-*.yaml
+Thumbs.db
+
+# Env
+.env
+.env.*
+!.env.example
+!.env.test
+
+# Vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# firestore
 serviceAccountKey.json
+cloud*.yaml

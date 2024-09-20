@@ -1,7 +1,7 @@
 // Geohash 디코딩을 위한 base32 문자 집합
 const BASE32 = '0123456789bcdefghjkmnpqrstuvwxyz';
 
-const encodeGeoHash = (lat, lng, hashLength) => {
+export const encodeGeoHash = (lat: number, lng: number, hashLength: number) => {
     const BASE32 = '0123456789bcdefghjkmnpqrstuvwxyz';
     const binaryCordinate = getBinaryCordinate(lat, lng, hashLength);
 
@@ -15,7 +15,7 @@ const encodeGeoHash = (lat, lng, hashLength) => {
     return geohash;
 }
 
-function getBinaryCordinate(lat, lng, hashLength) {
+function getBinaryCordinate(lat: number, lng: number, hashLength: number) {
     let binary = '';
     let left = -180;
     let right = 180;
@@ -63,7 +63,7 @@ function getBinaryCordinate(lat, lng, hashLength) {
 
 
 // Geohash를 EPSG:4326 좌표계 (경도, 위도)로 디코딩하는 함수
-const decodeGeohash = (geohash) => {
+export const decodeGeohash = (geohash: string) => {
     let isEven = true;
     let lat = [-90.0, 90.0]; // 위도 범위
     let lon = [-180.0, 180.0]; // 경도 범위
@@ -108,6 +108,3 @@ const decodeGeohash = (geohash) => {
         longitude: finalLon
     };
 }
-
-exports.encodeGeoHash = encodeGeoHash;
-exports.decodeGeohash = decodeGeohash;
